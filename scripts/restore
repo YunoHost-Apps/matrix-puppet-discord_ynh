@@ -94,6 +94,9 @@ log_path=$(ynh_app_setting_get --app=$app --key=log_path)
 ynh_restore_file --origin_path="$log_path"
 chown $app:$app "$log_path"
 
+etc_path=$(ynh_app_setting_get --app=$app --key=etc_path)
+ynh_restore_file --origin_path="$etc_path"
+
 #=================================================
 # REGISTER SYNAPSE APP-SERVICE
 #=================================================
@@ -108,6 +111,8 @@ ynh_script_progression --message="Restoring the systemd configuration..." --weig
 
 ynh_restore_file --origin_path="/etc/systemd/system/$app.service"
 systemctl enable $app.service --quiet
+setup_run_script_rights
+
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST

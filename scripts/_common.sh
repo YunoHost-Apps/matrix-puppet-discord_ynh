@@ -31,3 +31,15 @@ setup_final_path_rights() {
     chmod -R o-rwx "$final_path"
     chown -R $app:$app "$final_path"
 }
+
+setup_run_script_rights() {
+    chmod 750 "$final_path/run.sh"
+    chown "$app:$app" "$final_path/run.sh"
+}
+
+create_etc() {
+  local etc_path=$1
+  mkdir -p -m 750 "$etc_path"
+  chown "$app:$app" "$etc_path"
+}
+
