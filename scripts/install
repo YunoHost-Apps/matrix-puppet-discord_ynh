@@ -132,6 +132,7 @@ install_node_deps
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
+any_account_of_domain="@.*:${domain//\./\\\\\.}"
 # TODO Add a way to override the config.yaml file
 ynh_add_config --template="base.config.yaml" --destination="$config_path"
 
