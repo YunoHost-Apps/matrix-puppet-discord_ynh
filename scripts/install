@@ -42,7 +42,6 @@ server_name=$(ynh_app_setting_get --app $synapse_instance --key server_name)
 domain=$(ynh_app_setting_get --app $synapse_instance --key domain)
 app_service_registration_path="/etc/matrix-$synapse_instance/app-service"
 log_path="/var/log/$app"
-config_path="$final_path/config.yaml"
 base_config_path="$final_path/base.config.yaml"
 user_config_path="/etc/$app/user.config.yaml"
 
@@ -146,14 +145,16 @@ etc_path=$(dirname $user_config_path)
 ynh_app_setting_set --app=$app --key=etc_path --value=$etc_path
 create_etc "$etc_path"
 
-any_account_of_domain="@.*:${domain//\./\\\\\.}"
+any_account_of_domain="@.*:${domain//\./\\\.}"
 
 # TODO Add a way to override the config.yaml file
 ynh_add_config --template="base.config.yaml" --destination="$base_config_path"
 ynh_add_config --template="user.config.yaml" --destination="$user_config_path"
 
-chmod 400 "$config_path"
-chown $app:$app "$config_path"
+chmod 400 "$base_config_path"
+chown $app:$app "$base_config_path"
+chmod 600 "$user_config_path"
+chown $app:$app "$user_config_path"
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
@@ -161,7 +162,10 @@ chown $app:$app "$config_path"
 
 # Calculate and store the config file checksum into the app settings
 ynh_store_file_checksum --file="$app_service_registration_path/$app.yaml"
-ynh_store_file_checksum --file="$config_path"
+
+# Probably not worth anymore, because the overrides should
+# be now in $user_config_path
+# ynh_store_file_checksum --file="$base_config_path"
 
 #=================================================
 # SETUP SYSTEMD
@@ -198,15 +202,6 @@ run_registration
 cp "$final_path/$app.yaml" $app_service_registration_path/$app.yaml
 /opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
     || ynh_die "Synapse can't restart with the appservice configuration"
-
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-# Calculate and store the config file checksum into the app settings
-ynh_store_file_checksum --file="$app_service_registration_path/$app.yaml"
-ynh_store_file_checksum --file="$config_path"
-
 
 #=================================================
 # SEND A README FOR THE ADMIN

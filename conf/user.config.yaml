@@ -10,7 +10,7 @@ provisioning:
     #- "@user:server\\.com"
 
     # Allow users on a specific homeserver
-    - "__ANY_ACCOUNT_OF_DOMAIN__"
+    - '__ANY_ACCOUNT_OF_DOMAIN__'
 
     # Allow anyone
     #- ".*"
@@ -30,7 +30,7 @@ relay:
   #
   # Same format as in provisioning
   whitelist:
-    - "__ANY_ACCOUNT_OF_DOMAIN__"
+    - '__ANY_ACCOUNT_OF_DOMAIN__'
 
   #blacklist:
     #- "@user:yourserver\\.com"
@@ -40,7 +40,7 @@ selfService:
   #
   # Same format as in provisioning
   whitelist:
-    - "__ANY_ACCOUNT_OF_DOMAIN__"
+    - '__ANY_ACCOUNT_OF_DOMAIN__'
 
   #blacklist:
     #- "@user:server\\.com"

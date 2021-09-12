@@ -96,6 +96,9 @@ chown $app:$app "$log_path"
 
 etc_path=$(ynh_app_setting_get --app=$app --key=etc_path)
 ynh_restore_file --origin_path="$etc_path"
+chown $app:$app "$etc_path"
+chmod 600 "$etc_path/user.config.yaml"
+chown $app:$app "$etc_path/user.config.yaml"
 
 #=================================================
 # REGISTER SYNAPSE APP-SERVICE

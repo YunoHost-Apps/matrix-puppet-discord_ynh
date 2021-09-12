@@ -56,7 +56,7 @@ ynh_backup --src_path="/etc/systemd/system/$app.service"
 #=================================================
 
 ynh_backup --src_path="$log_path"
-ynh_backup --src="$etc_path"
+ynh_backup --src_path="$etc_path"
 
 #=================================================
 # BACKUP THE POSTGRESQL DATABASE

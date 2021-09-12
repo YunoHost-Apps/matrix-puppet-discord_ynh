@@ -22,6 +22,7 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 log_path=$(ynh_app_setting_get --app=$app --key=log_path)
+etc_path=$(ynh_app_setting_get --app=$app --key=etc_path)
 
 ynh_print_OFF
 db_password=$(ynh_string_random --length=30)
@@ -93,6 +94,7 @@ ynh_script_progression --message="Removing various files..." --weight=1
 
 # Remove the log files
 ynh_secure_remove --file="$log_path"
+ynh_secure_remove --file="$etc_path"
 
 #=================================================
 # GENERIC FINALIZATION

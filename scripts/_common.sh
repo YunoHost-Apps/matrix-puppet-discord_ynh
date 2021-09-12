@@ -22,7 +22,7 @@ install_node_deps() {
 
 run_registration() {
     pushd "$final_path"
-        ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production npm run start -- -r -c $config_path -f "$app.yaml"
+        ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production $final_path/run.sh -r -f "$app.yaml"
     popd
 }
 
@@ -42,4 +42,3 @@ create_etc() {
   mkdir -p -m 750 "$etc_path"
   chown "$app:$app" "$etc_path"
 }
-
