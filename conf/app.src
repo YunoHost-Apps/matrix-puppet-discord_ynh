@@ -1,7 +1,7 @@
-SOURCE_URL=url of app's source
-SOURCE_SUM=sha256 checksum
+SOURCE_URL=https://github.com/matrix-discord/mx-puppet-discord/archive/bb6438a504182a7a64048b992179427587ccfded.tar.gz
+SOURCE_SUM=850e2ed4ca236bdae3409f8ccb59b3ebbf00e07be65990f8b00019e9732ced26
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=
-SOURCE_EXTRACT=true
+# SOURCE_FILENAME=
+# SOURCE_EXTRACT=true
