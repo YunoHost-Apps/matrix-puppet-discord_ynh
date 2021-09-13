@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+
 echo <<EOF > __FINALPATH__/config.yaml
 # /!\ FILE GENERATED AUTOMATICALLY BEFORE EACH SERVICE RESTART
 # CONSIDER EDITING /etc/__APP__/user.config.yaml
