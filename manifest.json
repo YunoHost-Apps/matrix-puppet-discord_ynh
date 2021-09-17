@@ -3,7 +3,7 @@
     "id": "matrix-puppet-discord",
     "packaging_format": 1,
     "description": {
-        "en": "A Discord bridge for Matrix/Synapse.",
+        "en": "A Discord puppeting bridge for Matrix/Synapse.",
         "fr": "Passerelle Discord pour Matrix/Synapse."
     },
     "version": "1.0~ynh1",

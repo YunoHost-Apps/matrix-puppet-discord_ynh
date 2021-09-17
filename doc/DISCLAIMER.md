@@ -1,12 +1,3 @@
-* Any known limitations, constrains or stuff not working, such as (but not limited to):
-    * requiring a full dedicated domain ?
-    * architectures not supported ?
-    * not-working single-sign on or LDAP integration ?
-    * the app requires an important amount of RAM / disk / .. to install or to work properly
-    * etc...
+After the install is complete, start a chat with `@_discordpuppet_bot:yourserver.com`. When it joins, type `help` in the chat to see instructions.
 
-* Other infos that people should be aware of, such as:
-    * any specific step to perform after installing (such as manually finishing the install, specific admin credentials, ...)
-    * how to configure / administrate the application if it ain't obvious
-    * upgrade process / specificities / things to be aware of ?
-    * security considerations ?
+You also may modify the `/etc/matrix-puppet-discord/user.config.yaml` file to customize some configuration (like permissions to use the bridge). Ensure then to restart the bridge (`systemctl restart matrix-puppet-discord`).
