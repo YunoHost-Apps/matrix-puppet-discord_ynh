@@ -24,9 +24,7 @@ final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 language=$(ynh_app_setting_get --app=$app --key=language)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
-ynh_print_OFF
-db_password=$(ynh_app_setting_get --app=$app --key=db_password)
-ynh_print_ON
+db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
 synapse_instance=$(ynh_app_setting_get --app=$app --key=synapse_instance)
 log_path=$(ynh_app_setting_get --app=$app --key=log_path)
 etc_path=$(ynh_app_setting_get --app=$app --key=etc_path)
@@ -115,7 +113,9 @@ then
 	ynh_setup_source --dest_dir="$final_path"
 fi
 
-setup_final_path_rights
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:$app "$final_path"
 
 #=================================================
 # UPGRADE DEPENDENCIES
@@ -131,7 +131,10 @@ ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
 ynh_script_progression --message="Building Node dependencies..." --weight=3
 
-install_node_deps
+pushd "$final_path"
+  ynh_use_nodejs
+  ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH npm install
+popd
 
 #=================================================
 # SPECIFIC UPGRADE
@@ -167,7 +170,9 @@ ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 # Create startup script
 ynh_add_config --template="../sources/extra_files/app/run.sh" --destination="$final_path/run.sh"
-setup_run_script_rights
+
+chmod 750 "$final_path/run.sh"
+chown "$app:$app" "$final_path/run.sh"
 
 yunohost service add $app --description "$app daemon for bridging Discord and Matrix messages"
 
@@ -181,7 +186,11 @@ ynh_systemd_action --service_name=$app --action="start"
 #=================================================
 # REGISTER MODULE IN SYNAPSE
 #=================================================
-run_registration
+
+pushd "$final_path"
+    ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production $final_path/run.sh -r -f "$app.yaml"
+popd
+
 cp "$final_path/$app.yaml" $app_service_registration_path/$app.yaml
 /opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
     || ynh_die "Synapse can't restart with the appservice configuration"
