@@ -122,8 +122,8 @@ chown -R $app:$app "$final_path"
 ynh_script_progression --message="Building Node dependencies..." --weight=30
 
 pushd "$final_path"
-  ynh_use_nodejs
-  ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH npm install
+    ynh_use_nodejs
+    ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH npm install
 popd
 
 #=================================================
@@ -155,17 +155,6 @@ chmod 400 "$base_config_path"
 chown $app:$app "$base_config_path"
 chmod 600 "$user_config_path"
 chown $app:$app "$user_config_path"
-
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-# Calculate and store the config file checksum into the app settings
-ynh_store_file_checksum --file="$app_service_registration_path/$app.yaml"
-
-# Probably not worth anymore, because the overrides should
-# be now in $user_config_path
-# ynh_store_file_checksum --file="$base_config_path"
 
 #=================================================
 # SETUP SYSTEMD
@@ -207,6 +196,14 @@ popd
 cp "$final_path/$app.yaml" $app_service_registration_path/$app.yaml
 /opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
     || ynh_die "Synapse can't restart with the appservice configuration"
+
+#=================================================
+# STORE THE CONFIG FILE CHECKSUM
+#=================================================
+
+# Calculate and store the config file checksum into the app settings
+ynh_store_file_checksum --file="$app_service_registration_path/$app.yaml"
+
 
 #=================================================
 # SEND A README FOR THE ADMIN
