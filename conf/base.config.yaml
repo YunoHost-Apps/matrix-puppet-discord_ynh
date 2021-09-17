@@ -108,7 +108,7 @@ database:
   # with username "user", password "pass", host "localhost" and database name "dbname".
   #
   # Modify each value as necessary
-  connString: "postgresql://__DB_USER__:__DB_PASSWORD__@localhost/__DB_NAME__"
+  connString: "postgresql://__DB_USER__:__DB_PWD__@localhost/__DB_NAME__"
 
   # Use SQLite3 as a database backend
   #
