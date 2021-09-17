@@ -40,7 +40,7 @@ This is a discord puppeting bridge for matrix. It handles bridging private and g
 See <https://github.com/matrix-discord/mx-puppet-discord> for documentation.
 
 
-**Shipped version:** 0.1.6~ynh1
+**Shipped version:** 0.1.6~ynh2
 
 
 
