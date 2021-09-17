@@ -6,7 +6,7 @@
         "en": "A Discord puppeting bridge for Matrix/Synapse.",
         "fr": "Passerelle Discord pour Matrix/Synapse."
     },
-    "version": "0.1.6~ynh1",
+    "version": "0.1.6~ynh2",
     "url": "https://github.com/matrix-discord/mx-puppet-discord",
     "upstream": {
         "license": " Apache-2.0",
