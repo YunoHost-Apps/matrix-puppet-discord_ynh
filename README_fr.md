@@ -1,66 +1,71 @@
-# Example app pour YunoHost
+# Matrix-Discord bridge pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/example.svg)](https://dash.yunohost.org/appci/app/example) ![](https://ci-apps.yunohost.org/ci/badges/example.status.svg)  ![](https://ci-apps.yunohost.org/ci/badges/example.maintain.svg)
-[![Installer example avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=example)
+[![Niveau d'intégration](https://dash.yunohost.org/integration/matrix-puppet-discord.svg)](https://dash.yunohost.org/appci/app/matrix-puppet-discord) ![](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.maintain.svg)
+[![Installer Matrix-Discord bridge avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matrix-puppet-discord)
 
-*[Read this readme in english.](./README.md)*
-*[Lire ce readme en français.](./README_fr.md)*
+_[Read this readme in english.](./README.md)_
+_[Lire ce readme en français.](./README_fr.md)_
 
-> *This package allows you to install example quickly and simply on a YunoHost server.
-If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
+> _Ce package vous permet d'installer Matrix-Discord bridge rapidement et simplement sur un serveur YunoHost.
+> Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter._
 
 ## Vue d'ensemble
 
-Expliquez en *quelques* (10~15) mots l'utilité de l'app ou ce qu'elle fait (l'objectif est de donner une idée grossière pour des utilisateurs qui naviguent dans un catalogue de 100+ apps)
+Ceci est une passerelle vers Discord pour Matrix. Il gère la messagerie privée ou en groupe, tout comme la discussion dans une guilde (serveur Discord). Le projet est basé sur [mx-puppet-bridge](https://github.com/Sorunome/mx-puppet-bridge).
 
-**Version incluse:** 1.0~ynh1
+### Fonctionnalités
 
-**Démo:** https://demo.example.com
+- Messagerie directe (1:1)
+- Discussion privée en groupe
+- Plein texte
+- Messages formattés
+- Fichiers / médias
+- Notification de rédaction / suppression
+- Présence (Discord → Matrix seulement)
+- Notification de saisie (Discord → Matrix seulement)
+- Réponses
+- Modifications de messages
+- Réactions
+- Stickers
+- Multi-utilisateur·rices
+- Gestion des ami·es
+- initier des chats depuis matrix
 
+### Comment faire
+
+Voir la documentation sur <https://github.com/matrix-discord/mx-puppet-discord> (en anglais).
+
+**Version incluse :** 0.1.6~ynh1
 
 ## Captures d'écran
 
-
-   ![](./doc/screenshots/example.jpg)
-
-
-
+![](./doc/screenshots/example.jpg)
 
 ## Avertissements / informations importantes
 
-* Any known limitations, constrains or stuff not working, such as (but not limited to):
-    * requiring a full dedicated domain ?
-    * architectures not supported ?
-    * not-working single-sign on or LDAP integration ?
-    * the app requires an important amount of RAM / disk / .. to install or to work properly
-    * etc...
+Après l'installation, lancer une conversation privée avec `@_discordpuppet_bot:yourserver.com`. Ensuite, entrer `help` dans le chat pour lire les instructions.
 
-* Other infos that people should be aware of, such as:
-    * any specific step to perform after installing (such as manually finishing the install, specific admin credentials, ...)
-    * how to configure / administrate the application if it ain't obvious
-    * upgrade process / specificities / things to be aware of ?
-    * security considerations ?
-
-
+Vous pouvez par ailleurs modifier le fichier `/etc/matrix-puppet-discord/user.config.yaml` pour personnaliser la configuration (notamment les permissions pour utiliser la passerelle). Redémarrez bien ensuite la passerelle pour que les modifications soient effectives (`systemctl restart matrix-puppet-discord`).
 
 ## Documentations et ressources
 
-* Site official de l'app : https://example.com
-* Documentation officielle utilisateur: https://yunohost.org/apps
-* Documentation officielle de l'admin: https://yunohost.org/packaging_apps
-* Dépôt de code officiel de l'app:  https://some.forge.com/example/example
-* Documentation YunoHost pour cette app: https://yunohost.org/app_example
-* Signaler un bug: https://github.com/YunoHost-Apps/example_ynh/issues
+- Site officiel de l'app : https://github.com/matrix-discord/mx-puppet-discord
+- Documentation officielle de l'admin : https://github.com/matrix-discord/mx-puppet-discord
+- Dépôt de code officiel de l'app : https://github.com/matrix-discord/mx-puppet-discord
+- Documentation YunoHost pour cette app : https://yunohost.org/app_matrix-puppet-discord
+- Signaler un bug : https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/issues
 
 ## Informations pour les développeurs
 
-Merci de faire vos pull request sur la [branche testing](https://github.com/YunoHost-Apps/example_ynh/tree/testing).
+Merci de faire vos pull request sur la [branche testing](https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/tree/testing).
 
 Pour essayer la branche testing, procédez comme suit.
+
 ```
-sudo yunohost app install https://github.com/YunoHost-Apps/example_ynh/tree/testing --debug
-or
-sudo yunohost app upgrade example -u https://github.com/YunoHost-Apps/example_ynh/tree/testing --debug
+sudo yunohost app install https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/tree/testing --debug
+ou
+sudo yunohost app upgrade matrix-puppet-discord -u https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications:** https://yunohost.org/packaging_apps
+**Plus d'infos sur le packaging d'applications :** https://yunohost.org/packaging_apps
+
