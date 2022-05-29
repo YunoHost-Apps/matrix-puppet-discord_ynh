@@ -40,7 +40,7 @@ This is a discord puppeting bridge for matrix. It handles bridging private and g
 See <https://github.com/matrix-discord/mx-puppet-discord> for documentation.
 
 
-**Shipped version:** 0.1.6~ynh2
+**Shipped version:** 0.1.7~ynh1
 
 ## Screenshots
 
@@ -54,9 +54,9 @@ You also may modify the `/etc/matrix-puppet-discord/user.config.yaml` file to cu
 
 ## Documentation and resources
 
-* Official app website: <https://github.com/matrix-discord/mx-puppet-discord>
-* Official admin documentation: <https://github.com/matrix-discord/mx-puppet-discord>
-* Upstream app code repository: <https://github.com/matrix-discord/mx-puppet-discord>
+* Official app website: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
+* Official admin documentation: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
+* Upstream app code repository: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 * YunoHost documentation for this app: <https://yunohost.org/app_matrix-puppet-discord>
 * Report a bug: <https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/issues>
 
