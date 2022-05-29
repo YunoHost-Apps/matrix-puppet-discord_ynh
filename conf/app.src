@@ -1,4 +1,4 @@
-SOURCE_URL=https://gitlab.com/mx-puppet/discord/mx-puppet-discord/-/archive/master/mx-puppet-discord-master.tar.gz
+SOURCE_URL=https://gitlab.com/mx-puppet/discord/mx-puppet-discord/-/archive/3c82530ac4978ae206f63634a319523e5bff299a/mx-puppet-discord-master.tar.gz
 SOURCE_SUM=3e774c0a7fe02ba92fb2b2e45edb5601e85dfe1a164cba20b60050bfdcb9c77f
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
