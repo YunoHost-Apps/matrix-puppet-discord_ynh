@@ -130,6 +130,7 @@ popd
 # SETUP PIP (FOR YQ)
 #=================================================
 
+ynh_script_progression --message="Install yq..." --weight=1
 pip_path=$final_path/.pip
 python3 -m venv $pip_path
 $pip_path/bin/pip3 install yq
