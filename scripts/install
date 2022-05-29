@@ -35,7 +35,7 @@ synapse_config_path="/etc/matrix-$synapse_instance"
 # Check Synapse is installed or die early
 if [ ! -d $synapse_config_path ]
 then
-  ynh_die "Could not find $synapse_config_path config directory. Ensure that you installed Matrix Synapse first and that you entered a correct \"synapse instance number\""
+  ynh_die --message="Could not find $synapse_config_path config directory. Ensure that you installed Matrix Synapse first and that you entered a correct \"synapse instance number\""
 fi
 
 server_name=$(ynh_app_setting_get --app $synapse_instance --key server_name)
@@ -195,7 +195,7 @@ popd
 
 cp "$final_path/$app.yaml" $app_service_registration_path/$app.yaml
 /opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
-    || ynh_die "Synapse can't restart with the appservice configuration"
+    || ynh_die --message="Synapse can't restart with the appservice configuration"
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
