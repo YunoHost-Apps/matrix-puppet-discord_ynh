@@ -40,7 +40,7 @@ Ceci est une passerelle vers Discord pour Matrix. Il gère la messagerie privée
 Voir la documentation sur <https://github.com/matrix-discord/mx-puppet-discord> (en anglais).
 
 
-**Version incluse :** 0.1.6~ynh2
+**Version incluse :** 0.1.7~ynh1
 
 ## Captures d'écran
 
@@ -54,9 +54,9 @@ Vous pouvez par ailleurs modifier le fichier `/etc/matrix-puppet-discord/user.co
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://github.com/matrix-discord/mx-puppet-discord>
-* Documentation officielle de l'admin : <https://github.com/matrix-discord/mx-puppet-discord>
-* Dépôt de code officiel de l'app : <https://github.com/matrix-discord/mx-puppet-discord>
+* Site officiel de l'app : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
+* Documentation officielle de l'admin : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
+* Dépôt de code officiel de l'app : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_matrix-puppet-discord>
 * Signaler un bug : <https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/issues>
 
