@@ -1,5 +1,5 @@
-SOURCE_URL=https://gitlab.com/mx-puppet/discord/mx-puppet-discord/-/archive/fd4402268e9a8b942ca632f3337702862e06d24f/mx-puppet-discord-fd4402268e9a8b942ca632f3337702862e06d24f.tar.gz
-SOURCE_SUM=b0edc4dfe9d3670eb8b53dc229a8fd7fb794ada5fe1f3d3ba4c38b54ce5ca176
+SOURCE_URL=https://gitlab.com/mx-puppet/discord/mx-puppet-discord/-/archive/3c82530ac4978ae206f63634a319523e5bff299a/mx-puppet-discord-master.tar.gz
+SOURCE_SUM=3e774c0a7fe02ba92fb2b2e45edb5601e85dfe1a164cba20b60050bfdcb9c77f
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
