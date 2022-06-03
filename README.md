@@ -15,7 +15,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-This is a discord puppeting bridge for matrix. It handles bridging private and group DMs, as well as Guilds (servers). It is based on [mx-puppet-bridge](https://github.com/Sorunome/mx-puppet-bridge).
+This is a discord puppeting bridge for matrix. It handles bridging private and group DMs, as well as Guilds (servers). It is based on [mx-puppet-bridge](https://gitlab.com/mx-puppet/mx-puppet-bridge).
 
 ### Features
 
@@ -37,7 +37,7 @@ This is a discord puppeting bridge for matrix. It handles bridging private and g
 
 ### How to
 
-See <https://github.com/matrix-discord/mx-puppet-discord> for documentation.
+See <https://gitlab.com/mx-puppet/discord/mx-puppet-discord> for documentation.
 
 
 **Shipped version:** 0.1.7~ynh1
