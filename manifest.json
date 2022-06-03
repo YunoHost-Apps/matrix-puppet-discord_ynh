@@ -7,7 +7,7 @@
         "fr": "Passerelle Discord pour Matrix/Synapse."
     },
     "version": "0.1.7~ynh1",
-    "url": "https://github.com/matrix-discord/mx-puppet-discord",
+    "url": "https://gitlab.com/mx-puppet/discord/mx-puppet-discord",
     "upstream": {
         "license": " Apache-2.0",
         "website": "https://gitlab.com/mx-puppet/discord/mx-puppet-discord",
