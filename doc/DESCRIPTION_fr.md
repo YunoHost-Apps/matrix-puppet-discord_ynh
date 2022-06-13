@@ -1,4 +1,4 @@
-Ceci est une passerelle vers Discord pour Matrix. Il gère la messagerie privée ou en groupe, tout comme la discussion dans une guilde (serveur Discord). Le projet est basé sur [mx-puppet-bridge](https://github.com/Sorunome/mx-puppet-bridge).
+Ceci est une passerelle vers Discord pour Matrix. Il gère la messagerie privée ou en groupe, tout comme la discussion dans une guilde (serveur Discord). Le projet est basé sur [mx-puppet-bridge](https://gitlab.com/mx-puppet/mx-puppet-bridge).
 
 ### Fonctionnalités
 
@@ -20,4 +20,4 @@ Ceci est une passerelle vers Discord pour Matrix. Il gère la messagerie privée
 
 ### Comment faire
 
-Voir la documentation sur <https://github.com/matrix-discord/mx-puppet-discord> (en anglais).
+Voir la documentation sur <https://gitlab.com/mx-puppet/discord/mx-puppet-discord> (en anglais).
