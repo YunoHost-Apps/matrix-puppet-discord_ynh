@@ -13,29 +13,34 @@ source /usr/share/yunohost/helpers
 # MANAGE SCRIPT FAILURE
 #=================================================
 
+ynh_clean_setup () {
+	ynh_clean_check_starting
+}
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
 #=================================================
-# SET CONSTANTS
+# RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
 
-app=$YNH_APP_INSTANCE_NAME
-final_path=/opt/yunohost/$app
 synapsenumber=$YNH_APP_ARG_SYNAPSENUMBER
+
+app=$YNH_APP_INSTANCE_NAME
+
+final_path=/opt/yunohost/$app
 
 if [ $synapsenumber -eq "1" ]
 then
-    synapse_instance="synapse"
+	synapse_instance="synapse"
 else
-    synapse_instance="synapse__$synapsenumber"
+	synapse_instance="synapse__$synapsenumber"
 fi
 
 synapse_config_path="/etc/matrix-$synapse_instance"
 # Check Synapse is installed or die early
 if [ ! -d $synapse_config_path ]
 then
-  ynh_die --message="Could not find $synapse_config_path config directory. Ensure that you installed Matrix Synapse first and that you entered a correct \"synapse instance number\""
+	ynh_die --message="Could not find $synapse_config_path config directory. Ensure that you installed Matrix Synapse first and that you entered a correct \"synapse instance number\""
 fi
 
 server_name=$(ynh_app_setting_get --app $synapse_instance --key server_name)
@@ -68,11 +73,6 @@ ynh_app_setting_set --app=$app --key=synapse_instance --value=$synapse_instance
 # FIND AND OPEN A PORT
 #=================================================
 ynh_script_progression --message="Finding an available port..." --weight=1
-
-### Use these lines if you have to open a port for the application
-### `ynh_find_port` will find the first available port starting from the given port.
-### If you're not using these lines:
-###		- Remove the section "CLOSE A PORT" in the remove script
 
 # Find an available port
 port=$(ynh_find_port --port=8434)
@@ -110,6 +110,7 @@ ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
 ynh_script_progression --message="Setting up source files..." --weight=1
 
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
 
 chmod 750 "$final_path"
@@ -122,15 +123,15 @@ chown -R $app:$app "$final_path"
 ynh_script_progression --message="Building Node dependencies..." --weight=30
 
 pushd "$final_path"
-    ynh_use_nodejs
-    ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=accept-new' npm install
+	ynh_use_nodejs
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=accept-new' npm install
 popd
 
 #=================================================
 # SETUP PIP (FOR YQ)
 #=================================================
-
 ynh_script_progression --message="Install yq..." --weight=1
+
 pip_path=$final_path/.pip
 python3 -m venv $pip_path
 $pip_path/bin/pip3 install yq
@@ -163,7 +164,7 @@ chown $app:$app "$user_config_path"
 ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
 # Create startup script
-ynh_add_config --template="../sources/extra_files/app/run.sh" --destination="$final_path/run.sh"
+ynh_add_config --template="../conf/run.sh" --destination="$final_path/run.sh"
 
 chmod 750 "$final_path/run.sh"
 chown "$app:$app" "$final_path/run.sh"
@@ -172,18 +173,11 @@ chown "$app:$app" "$final_path/run.sh"
 ynh_add_systemd_config
 
 #=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-yunohost service add $app --description "$app daemon for bridging Discord and Matrix messages"
-
-#=================================================
 # CREATE LOG DIR
 #=================================================
+
 mkdir -p -m 700 "$log_path"
 chown $app:$app "$log_path"
-
 
 #=================================================
 # REGISTER MODULE IN SYNAPSE
@@ -191,27 +185,23 @@ chown $app:$app "$log_path"
 ynh_script_progression --message="Register module in Synapse" --weight=1
 
 pushd "$final_path"
-    ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production $final_path/run.sh -r -f "$app.yaml"
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production $final_path/run.sh -r -f "$app.yaml"
 popd
 
 cp "$final_path/$app.yaml" $app_service_registration_path/$app.yaml
 /opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
-    || ynh_die --message="Synapse can't restart with the appservice configuration"
+	|| ynh_die --message="Synapse can't restart with the appservice configuration"
 
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-# Calculate and store the config file checksum into the app settings
 ynh_store_file_checksum --file="$app_service_registration_path/$app.yaml"
 
-
 #=================================================
-# SEND A README FOR THE ADMIN
+# GENERIC FINALIZATION
 #=================================================
-ynh_script_progression --message="Sending a readme for the admin..."
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-# ynh_send_readme_to_admin --app_message="../conf/msg_install" --recipients=$admin_email --type='install'
+yunohost service add $app --description "$app daemon for bridging Discord and Matrix messages"
 
 #=================================================
 # START SYSTEMD SERVICE
@@ -220,6 +210,13 @@ ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start"
+
+#=================================================
+# SEND A README FOR THE ADMIN
+#=================================================
+ynh_script_progression --message="Sending a readme for the admin..."
+
+# ynh_send_readme_to_admin --app_message="../conf/msg_install" --recipients=$admin_email --type='install'
 
 #=================================================
 # END OF SCRIPT
