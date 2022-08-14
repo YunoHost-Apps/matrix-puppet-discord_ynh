@@ -40,7 +40,8 @@ Ceci est une passerelle vers Discord pour Matrix. Il gère la messagerie privée
 Voir la documentation sur <https://gitlab.com/mx-puppet/discord/mx-puppet-discord> (en anglais).
 
 
-**Version incluse :** 0.1.7~ynh2
+**Version incluse :** 0.1.7~ynh2
+
 
 ## Captures d'écran
 
