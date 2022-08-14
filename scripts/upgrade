@@ -137,6 +137,14 @@ pushd "$final_path"
 popd
 
 #=================================================
+# SETUP PIP (FOR YQ)
+#=================================================
+
+pip_path=$final_path/.pip
+python3 -m venv $pip_path
+$pip_path/bin/pip3 install yq
+
+#=================================================
 # SPECIFIC UPGRADE
 #=================================================
 # UPDATE A CONFIG FILE
