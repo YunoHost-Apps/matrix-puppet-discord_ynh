@@ -4,11 +4,20 @@
 # COMMON VARIABLES
 #=================================================
 
-# dependencies used by the app
-pkg_dependencies="postgresql"
 # Node version
 NODEJS_VERSION=16
 
+# dependencies used by the app (must be on a single line)
+pkg_dependencies="postgresql"
+
 #=================================================
 # PERSONAL HELPERS
+#=================================================
+
+#=================================================
+# EXPERIMENTAL HELPERS
+#=================================================
+
+#=================================================
+# FUTURE OFFICIAL HELPERS
 #=================================================
