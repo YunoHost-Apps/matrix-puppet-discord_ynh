@@ -14,6 +14,9 @@ source /usr/share/yunohost/helpers
 # MANAGE SCRIPT FAILURE
 #=================================================
 
+ynh_clean_setup () {
+	true
+}
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
@@ -57,7 +60,7 @@ ynh_backup --src_path="$etc_path"
 #=================================================
 # BACKUP THE POSTGRESQL DATABASE
 #=================================================
-ynh_print_info --message="Backing up the PostgreSql database..."
+ynh_print_info --message="Backing up the PostgreSQL database..."
 
 ynh_psql_dump_db --database="$db_name" > db.sql
 

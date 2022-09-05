@@ -35,7 +35,7 @@ app_service_registration_path=$(ynh_app_setting_get --app=$app --key=app_service
 #=================================================
 # CHECK VERSION
 #=================================================
-ynh_script_progression --message="Checking version..."
+ynh_script_progression --message="Checking version..." --weight=1
 
 upgrade_type=$(ynh_check_app_version_changed)
 
@@ -47,7 +47,6 @@ ynh_script_progression --message="Backing up the app before upgrading (may take 
 # Backup the current version of the app
 ynh_backup_before_upgrade
 ynh_clean_setup () {
-	ynh_clean_check_starting
 	# Restore it if the upgrade fails
 	ynh_restore_upgradebackup
 }
@@ -101,6 +100,8 @@ ynh_install_app_dependencies $pkg_dependencies
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
 #=================================================
+# SPECIFIC UPGRADE
+#=================================================
 # INSTALL NODE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Building Node dependencies..." --weight=3
@@ -110,8 +111,6 @@ pushd "$final_path"
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=accept-new' npm install
 popd
 
-#=================================================
-# SPECIFIC UPGRADE
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
@@ -123,16 +122,16 @@ chmod 400 "$base_config_path"
 chown $app:$app "$base_config_path"
 
 #=================================================
-# REGISTER MODULE IN SYNAPSE
+# REGISTER SYNAPSE APP-SERVICE
 #=================================================
+ynh_script_progression --message="Registering Synapse app-service" --weight=1
 
 pushd "$final_path"
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production $final_path/run.sh -r -f "$app.yaml"
 popd
 
 cp "$final_path/$app.yaml" $app_service_registration_path/$app.yaml
-/opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
-	|| ynh_die --message="Synapse can't restart with the appservice configuration"
+/opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh || ynh_die --message="Synapse can't restart with the appservice configuration"
 
 #=================================================
 # SETUP SYSTEMD
@@ -155,13 +154,14 @@ ynh_add_config --template="../conf/run.sh" --destination="$final_path/run.sh"
 chmod 750 "$final_path/run.sh"
 chown "$app:$app" "$final_path/run.sh"
 
-yunohost service add $app --description "$app daemon for bridging Discord and Matrix messages"
+yunohost service add $app --description="$app daemon for bridging Discord and Matrix messages"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
+# Start a systemd service
 ynh_systemd_action --service_name=$app --action="start"
 
 #=================================================
