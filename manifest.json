@@ -3,13 +3,13 @@
     "id": "matrix-puppet-discord",
     "packaging_format": 1,
     "description": {
-        "en": "A Discord puppeting bridge for Matrix/Synapse.",
+        "en": "Discord puppeting bridge for Matrix/Synapse.",
         "fr": "Passerelle Discord pour Matrix/Synapse."
     },
     "version": "0.1.7~ynh2",
     "url": "https://gitlab.com/mx-puppet/discord/mx-puppet-discord",
     "upstream": {
-        "license": " Apache-2.0",
+        "license": "Apache-2.0",
         "website": "https://gitlab.com/mx-puppet/discord/mx-puppet-discord",
         "admindoc": "https://gitlab.com/mx-puppet/discord/mx-puppet-discord",
         "code": "https://gitlab.com/mx-puppet/discord/mx-puppet-discord"

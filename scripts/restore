@@ -15,7 +15,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_clean_setup () {
-	ynh_clean_check_starting
+	true
 }
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
@@ -80,13 +80,12 @@ ynh_use_nodejs
 #=================================================
 # RESTORE THE POSTGRESQL DATABASE
 #=================================================
-ynh_script_progression --message="Restoring the PostgresSql database..." --weight=20
+ynh_script_progression --message="Restoring the PostgreSQL database..." --weight=20
 
 ynh_psql_test_if_first_run
 db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
-# TODO: should I let these operation be logged?
 ynh_psql_setup_db --db_user=$db_user --db_name=$db_name --db_pwd=$db_pwd
-ynh_psql_connect_as --user=$db_user --password=$db_pwd --database=$db_name < ./db.sql
+ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
 
 #=================================================
 # RESTORE VARIOUS FILES
@@ -106,9 +105,10 @@ chown $app:$app "$etc_path/user.config.yaml"
 #=================================================
 # REGISTER SYNAPSE APP-SERVICE
 #=================================================
+ynh_script_progression --message="Registering Synapse app-service" --weight=1
+
 cp "$final_path/$app.yaml" $app_service_registration_path/$app.yaml
-/opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
-	|| ynh_die --message="Synapse can't restart with the appservice configuration"
+/opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh || ynh_die --message="Synapse can't restart with the appservice configuration"
 
 #=================================================
 # RESTORE SYSTEMD
@@ -126,7 +126,7 @@ chown "$app:$app" "$final_path/run.sh"
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-yunohost service add $app --description "$app daemon for bridging Discord and Matrix messages"
+yunohost service add $app --description="$app daemon for bridging Discord and Matrix messages"
 
 #=================================================
 # START SYSTEMD SERVICE
