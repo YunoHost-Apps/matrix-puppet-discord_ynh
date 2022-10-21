@@ -5,7 +5,7 @@
 #=================================================
 
 # Node version
-NODEJS_VERSION=16
+NODEJS_VERSION=12
 
 # dependencies used by the app (must be on a single line)
 pkg_dependencies="postgresql"
