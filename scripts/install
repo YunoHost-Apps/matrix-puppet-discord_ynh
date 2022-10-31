@@ -128,7 +128,7 @@ ynh_script_progression --message="Building Node dependencies..." --weight=30
 
 pushd "$final_path"
 	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=accept-new' npm install
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH npx yarn -- install
 popd
 
 #=================================================
