@@ -42,7 +42,6 @@ See <https://gitlab.com/mx-puppet/discord/mx-puppet-discord> for documentation.
 
 **Shipped version:** 0.1.7~ynh3
 
-
 ## Screenshots
 
 ![Screenshot of Matrix-Discord bridge](./doc/screenshots/example.jpg)
