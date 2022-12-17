@@ -46,7 +46,7 @@
                 "default": "1"
             },
             {
-                "name": "user domain",
+                "name": "user_domain",
                 "type": "domain",
                 "ask": {
                     "en": "Choose the domain used by users on your serveur, in case of different from server domain.",
