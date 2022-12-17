@@ -153,7 +153,7 @@ ynh_app_setting_set --app=$app --key=etc_path --value=$etc_path
 mkdir -p -m 750 "$etc_path"
 chown "$app:$app" "$etc_path"
 
-any_account_of_domain="@.*:${domain//\./\\\.}"
+any_account_of_domain="@.*:${user_domain//\./\\\.}"
 
 # TODO Add a way to override the config.yaml file
 ynh_add_config --template="base.config.yaml" --destination="$base_config_path"
