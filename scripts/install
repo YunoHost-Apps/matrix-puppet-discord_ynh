@@ -45,6 +45,7 @@ fi
 
 server_name=$(ynh_app_setting_get --app $synapse_instance --key server_name)
 domain=$(ynh_app_setting_get --app $synapse_instance --key domain)
+user_domain=$(ynh_app_setting_get --app=$app --key=user_domain)
 app_service_registration_path="/etc/matrix-$synapse_instance/app-service"
 log_path="/var/log/$app"
 base_config_path="$final_path/base.config.yaml"
@@ -63,6 +64,7 @@ test ! -e "$final_path" || ynh_die --message="This path already contains a folde
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
+ynh_app_setting_set --app=$app --key=user_domain --value=$user_domain
 ynh_app_setting_set --app=$app --key=log_path --value=$log_path
 ynh_app_setting_set --app=$app --key=app_service_registration_path --value=$app_service_registration_path
 ynh_app_setting_set --app=$app --key=synapse_instance --value=$synapse_instance
