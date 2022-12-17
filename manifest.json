@@ -20,7 +20,8 @@
         "email": "florent.git@zeteo.me"
     },
     "requirements": {
-        "yunohost": ">= 4.1.0"
+        "yunohost": ">= 4.1.0",
+        "synapse": ">=1.0.0"
     },
     "multi_instance": true,
     "services": [
@@ -32,15 +33,32 @@
                 "name": "synapsenumber",
                 "type": "string",
                 "ask": {
-                    "en": "Choose the local synapse instance number to communicate with the Discord-Matrix bridge",
-                    "fr": "Choisissez le numéro de l'instance synapse qui doit communiquer avec la passerelle Discord-Matrix"
+                    "en": "Choose the local synapse instance number to communicate with the Discord-Matrix bridge.",
+                    "fr": "Choisissez le numéro de l'instance synapse qui doit communiquer avec la passerelle Discord-Matrix."
+                    "es": "Elije el numero de la instancia que se communicara con esta passarella Discord."
                 },
                 "example": "2 (for instance synapse__2)",
                 "help": {
                     "en": "If you installed synapse only once time, then leave default value 1.",
                     "fr": "Si vous n'avez installé qu'une fois synapse, gardez la valeur par défaut 1."
+                    "es": "Si synapse esta installado una sola vez, deje el valor en 1. "
                 },
                 "default": "1"
+            },
+            {
+                "name": "user domain",
+                "type": "domain",
+                "ask": {
+                    "en": "Choose the domain used by users on your serveur, in case of different from server domain.",
+                    "fr": "Choisissez le domaine configuré pour vos utilisateurs, dans le cas ou il est différent du domaine du serveur."
+                    "es": "Elije el dominio configurado para usuarios, en el caso de ser differente al dominio del servidor."
+                },
+                "example": "domain.tld",
+                "help": {
+                    "en": "If users have the same domain as server, please select the corresponding one.",
+                    "fr": "Si les utilisateurs ont le meme domaine que domaine que le serveur, selectionnez celui qui correspond."
+                    "es": "Si los usuarios cuentan con el mismo dominio que el servidor, seleciona el adecuado."
+                }
             }
         ]
     }
