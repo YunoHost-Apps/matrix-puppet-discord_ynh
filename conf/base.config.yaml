@@ -11,7 +11,7 @@ bridge:
   bindAddress: localhost
 
   # Public domain of the homeserver
-  domain: __DOMAIN__
+  domain: __USER_DOMAIN__
 
   # Reachable URL of the Matrix homeserver
   homeserverUrl: https://__DOMAIN__
