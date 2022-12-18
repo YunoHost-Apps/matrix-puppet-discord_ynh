@@ -17,6 +17,7 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 app=$YNH_APP_INSTANCE_NAME
 
 domain=$(ynh_app_setting_get --app=$app --key=domain)
+user_domain=$(ynh_app_setting_get --app=$app --key=user_domain)
 path_url=$(ynh_app_setting_get --app=$app --key=path)
 language=$(ynh_app_setting_get --app=$app --key=language)
 admin=$(ynh_app_setting_get --app=$app --key=admin)
@@ -31,6 +32,11 @@ etc_path=$(ynh_app_setting_get --app=$app --key=etc_path)
 user_config_path="$etc_path/user.config.yaml"
 pip_path="$final_path/.pip"
 app_service_registration_path=$(ynh_app_setting_get --app=$app --key=app_service_registration_path)
+
+if [ -z "$user_domain" ]; then
+	user_domain=$domain
+	ynh_app_setting_set --app=$app --key=user_domain --value=$domain
+fi
 
 #=================================================
 # CHECK VERSION

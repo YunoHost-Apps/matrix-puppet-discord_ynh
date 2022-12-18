@@ -20,7 +20,8 @@
         "email": "florent.git@zeteo.me"
     },
     "requirements": {
-        "yunohost": ">= 4.1.0"
+        "yunohost": ">= 4.1.0",
+        "synapse": ">=1.0.0"
     },
     "multi_instance": true,
     "services": [
@@ -32,13 +33,15 @@
                 "name": "synapsenumber",
                 "type": "string",
                 "ask": {
-                    "en": "Choose the local synapse instance number to communicate with the Discord-Matrix bridge",
-                    "fr": "Choisissez le numéro de l'instance synapse qui doit communiquer avec la passerelle Discord-Matrix"
+                    "en": "Choose the local synapse instance number to communicate with the Discord-Matrix bridge.",
+                    "fr": "Choisissez le numéro de l'instance synapse qui doit communiquer avec la passerelle Discord-Matrix.",
+                    "es": "Elije el numero de la instancia que se communicara con esta passarella Discord."
                 },
                 "example": "2 (for instance synapse__2)",
                 "help": {
                     "en": "If you installed synapse only once time, then leave default value 1.",
-                    "fr": "Si vous n'avez installé qu'une fois synapse, gardez la valeur par défaut 1."
+                    "fr": "Si vous n'avez installé qu'une fois synapse, gardez la valeur par défaut 1.",
+                    "es": "Si synapse esta installado una sola vez, deje el valor en 1. "
                 },
                 "default": "1"
             }
