@@ -44,21 +44,6 @@
                     "es": "Si synapse esta installado una sola vez, deje el valor en 1. "
                 },
                 "default": "1"
-            },
-            {
-                "name": "user_domain",
-                "type": "domain",
-                "ask": {
-                    "en": "Choose the domain used by users on your serveur, in case of different from server domain.",
-                    "fr": "Choisissez le domaine configuré pour vos utilisateurs, dans le cas ou il est différent du domaine du serveur.",
-                    "es": "Elije el dominio configurado para usuarios, en el caso de ser differente al dominio del servidor."
-                },
-                "example": "domain.tld",
-                "help": {
-                    "en": "If users have the same domain as server, please select the corresponding one.",
-                    "fr": "Si les utilisateurs ont le meme domaine que domaine que le serveur, selectionnez celui qui correspond.",
-                    "es": "Si los usuarios cuentan con el mismo dominio que el servidor, seleciona el adecuado."
-                }
             }
         ]
     }
