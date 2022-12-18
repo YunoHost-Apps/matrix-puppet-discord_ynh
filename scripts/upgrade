@@ -33,6 +33,11 @@ user_config_path="$etc_path/user.config.yaml"
 pip_path="$final_path/.pip"
 app_service_registration_path=$(ynh_app_setting_get --app=$app --key=app_service_registration_path)
 
+if [ -z "$user_domain" ]; then
+	user_domain=$domain
+	ynh_app_setting_set --app=$app --key=user_domain --value=$domain
+fi
+
 #=================================================
 # CHECK VERSION
 #=================================================
