@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # Matrix-Discord bridge for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/matrix-puppet-discord.svg)](https://dash.yunohost.org/appci/app/matrix-puppet-discord) ![Working status](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/matrix-puppet-discord.svg)](https://dash.yunohost.org/appci/app/matrix-puppet-discord) ![Working status](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.maintain.svg)
+
 [![Install Matrix-Discord bridge with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matrix-puppet-discord)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -57,7 +58,7 @@ You also may modify the `/etc/matrix-puppet-discord/user.config.yaml` file to cu
 * Official app website: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 * Official admin documentation: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 * Upstream app code repository: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
-* YunoHost documentation for this app: <https://yunohost.org/app_matrix-puppet-discord>
+* YunoHost Store: <https://apps.yunohost.org/app/matrix-puppet-discord>
 * Report a bug: <https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/issues>
 
 ## Developer info

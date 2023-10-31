@@ -5,15 +5,16 @@ It shall NOT be edited by hand.
 
 # Matrix-Discord bridge pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/matrix-puppet-discord.svg)](https://dash.yunohost.org/appci/app/matrix-puppet-discord) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/matrix-puppet-discord.svg)](https://dash.yunohost.org/appci/app/matrix-puppet-discord) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/matrix-puppet-discord.maintain.svg)
+
 [![Installer Matrix-Discord bridge avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matrix-puppet-discord)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Matrix-Discord bridge rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Matrix-Discord bridge rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 Ceci est une passerelle vers Discord pour Matrix. Il gère la messagerie privée ou en groupe, tout comme la discussion dans une guilde (serveur Discord). Le projet est basé sur [mx-puppet-bridge](https://gitlab.com/mx-puppet/mx-puppet-bridge).
 
@@ -42,9 +43,9 @@ Voir la documentation sur <https://gitlab.com/mx-puppet/discord/mx-puppet-discor
 
 **Version incluse :** 0.1.7~ynh4
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de Matrix-Discord bridge](./doc/screenshots/example.jpg)
+![Capture d’écran de Matrix-Discord bridge](./doc/screenshots/example.jpg)
 
 ## Avertissements / informations importantes
 
@@ -54,10 +55,10 @@ Vous pouvez par ailleurs modifier le fichier `/etc/matrix-puppet-discord/user.co
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
-* Documentation officielle de l'admin : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
-* Dépôt de code officiel de l'app : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_matrix-puppet-discord>
+* Site officiel de l’app : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
+* Documentation officielle de l’admin : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
+* Dépôt de code officiel de l’app : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
+* YunoHost Store: <https://apps.yunohost.org/app/matrix-puppet-discord>
 * Signaler un bug : <https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/issues>
 
 ## Informations pour les développeurs
@@ -72,4 +73,4 @@ ou
 sudo yunohost app upgrade matrix-puppet-discord -u https://github.com/YunoHost-Apps/matrix-puppet-discord_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
