@@ -20,7 +20,7 @@
         "email": "florent.git@zeteo.me"
     },
     "requirements": {
-        "yunohost": ">= 4.1.0"
+        "yunohost": ">= 11.1"
     },
     "multi_instance": true,
     "services": [
