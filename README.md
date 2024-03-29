@@ -41,17 +41,11 @@ This is a discord puppeting bridge for matrix. It handles bridging private and g
 See <https://gitlab.com/mx-puppet/discord/mx-puppet-discord> for documentation.
 
 
-**Shipped version:** 0.1.7~ynh4
+**Shipped version:** 0.1.7~ynh5
 
 ## Screenshots
 
 ![Screenshot of Matrix-Discord bridge](./doc/screenshots/example.jpg)
-
-## Disclaimers / important information
-
-After the install is complete, start a chat with `@_discordpuppet_bot:yourserver.com`. When it joins, type `help` in the chat to see instructions.
-
-You also may modify the `/etc/matrix-puppet-discord/user.config.yaml` file to customize some configuration (like permissions to use the bridge). Ensure then to restart the bridge (`systemctl restart matrix-puppet-discord`).
 
 ## :red_circle: Antifeatures
 
@@ -59,7 +53,6 @@ You also may modify the `/etc/matrix-puppet-discord/user.config.yaml` file to cu
 
 ## Documentation and resources
 
-- Official app website: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 - Official admin documentation: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 - Upstream app code repository: <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 - YunoHost Store: <https://apps.yunohost.org/app/matrix-puppet-discord>

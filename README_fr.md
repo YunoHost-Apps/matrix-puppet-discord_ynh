@@ -41,17 +41,11 @@ Ceci est une passerelle vers Discord pour Matrix. Il gère la messagerie privée
 Voir la documentation sur <https://gitlab.com/mx-puppet/discord/mx-puppet-discord> (en anglais).
 
 
-**Version incluse :** 0.1.7~ynh4
+**Version incluse :** 0.1.7~ynh5
 
 ## Captures d’écran
 
 ![Capture d’écran de Matrix-Discord bridge](./doc/screenshots/example.jpg)
-
-## Avertissements / informations importantes
-
-Après l'installation, lancer une conversation privée avec `@_discordpuppet_bot:yourserver.com`. Ensuite, entrer `help` dans le chat pour lire les instructions.
-
-Vous pouvez par ailleurs modifier le fichier `/etc/matrix-puppet-discord/user.config.yaml` pour personnaliser la configuration (notamment les permissions pour utiliser la passerelle). Redémarrez bien ensuite la passerelle pour que les modifications soient effectives (`systemctl restart matrix-puppet-discord`).
 
 ## :red_circle: Anti-fonctionnalités
 
@@ -59,7 +53,6 @@ Vous pouvez par ailleurs modifier le fichier `/etc/matrix-puppet-discord/user.co
 
 ## Documentations et ressources
 
-- Site officiel de l’app : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 - Documentation officielle de l’admin : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 - Dépôt de code officiel de l’app : <https://gitlab.com/mx-puppet/discord/mx-puppet-discord>
 - YunoHost Store : <https://apps.yunohost.org/app/matrix-puppet-discord>
