@@ -142,7 +142,7 @@ logging:
   # Log files are rotated daily by default
   files:
     # Log file path
-    - file: "__LOG_PATH__/bridge.log" # Will capture logs from DiscordBot
+    - file: "/var/log/__APP__/bridge.log" # Will capture logs from DiscordBot
       # Log level for this file
       #
       # Allowed values starting with most verbose:

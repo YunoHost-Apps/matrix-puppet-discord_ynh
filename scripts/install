@@ -1,8 +1,6 @@
 #!/bin/bash
 
 #=================================================
-# GENERIC START
-#=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
 
@@ -10,140 +8,61 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# MANAGE SCRIPT FAILURE
+# INITIALIZE AND STORE SETTINGS
 #=================================================
 
-ynh_clean_setup () {
-	true
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
-
-#=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
-#=================================================
-
-synapsenumber=$YNH_APP_ARG_SYNAPSENUMBER
-
-app=$YNH_APP_INSTANCE_NAME
-
-final_path=/opt/yunohost/$app
-
-if [ $synapsenumber -eq "1" ]
-then
-	synapse_instance="synapse"
+if [ $synapsenumber -eq "1" ]; then
+    synapse_instance="synapse"
 else
-	synapse_instance="synapse__$synapsenumber"
+    synapse_instance="synapse__$synapsenumber"
 fi
 
 synapse_config_path="/etc/matrix-$synapse_instance"
+
 # Check Synapse is installed or die early
-if [ ! -d $synapse_config_path ]
-then
-	ynh_die --message="Could not find $synapse_config_path config directory. Ensure that you installed Matrix Synapse first and that you entered a correct \"synapse instance number\""
+if [ ! -d "$synapse_config_path" ]; then
+    ynh_die --message="Could not find $synapse_config_path config directory. Ensure that you installed Matrix Synapse first and that you entered a correct \"synapse instance number\""
 fi
 
 server_name=$(ynh_app_setting_get --app $synapse_instance --key server_name)
 domain=$(ynh_app_setting_get --app $synapse_instance --key domain)
+
 app_service_registration_path="/etc/matrix-$synapse_instance/app-service"
 log_path="/var/log/$app"
-base_config_path="$final_path/base.config.yaml"
+base_config_path="$install_dir/base.config.yaml"
 user_config_path="/etc/$app/user.config.yaml"
-
-#=================================================
-# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
-#=================================================
-ynh_script_progression --message="Validating installation parameters..." --weight=1
-
-test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
-
-#=================================================
-# STORE SETTINGS FROM MANIFEST
-#=================================================
-ynh_script_progression --message="Storing installation settings..." --weight=1
-
-ynh_app_setting_set --app=$app --key=domain --value=$domain
-ynh_app_setting_set --app=$app --key=log_path --value=$log_path
-ynh_app_setting_set --app=$app --key=app_service_registration_path --value=$app_service_registration_path
-ynh_app_setting_set --app=$app --key=synapse_instance --value=$synapse_instance
-
-#=================================================
-# STANDARD MODIFICATIONS
-#=================================================
-# FIND AND OPEN A PORT
-#=================================================
-ynh_script_progression --message="Finding an available port..." --weight=1
-
-# Find an available port
-port=$(ynh_find_port --port=8434)
-ynh_app_setting_set --app=$app --key=port --value=$port
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=4
+ynh_script_progression --message="Installing NodeJS..." --weight=4
 
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
-ynh_install_app_dependencies $pkg_dependencies
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Configuring system user..." --weight=1
-
-# Create a system user
-ynh_system_user_create --username=$app --home_dir="$final_path"
-
-#=================================================
-# CREATE A POSTGRESQL DATABASE
-#=================================================
-ynh_script_progression --message="Creating a PostgreSQL database..." --weight=10
-
-db_name=$(ynh_sanitize_dbid --db_name=$app)
-db_user=$db_name
-ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_psql_test_if_first_run
-ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
-db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
+ynh_install_nodejs --nodejs_version="$NODEJS_VERSION"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=1
 
-ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$final_path"
+ynh_setup_source --dest_dir="$install_dir/source"
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:$app "$final_path"
-
-#=================================================
-# SPECIFIC SETUP
-#=================================================
-# INSTALL NODE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Building Node dependencies..." --weight=30
-
-pushd "$final_path"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH npx yarn install
-popd
-
-#=================================================
-# SETUP PIP (FOR YQ)
-#=================================================
-ynh_script_progression --message="Install yq..." --weight=1
-
-pip_path=$final_path/.pip
-python3 -m venv $pip_path
-$pip_path/bin/pip3 install yq
+chmod -R o-rwx "$install_dir"
+chown -R "$app:$app" "$install_dir"
 
 #=================================================
 # ADD CONFIGURATION FILES
 #=================================================
 ynh_script_progression --message="Adding configuration files..." --weight=1
+
+# Create startup script
+ynh_add_config --template="run.sh" --destination="$install_dir/run.sh"
+chmod 750 "$install_dir/run.sh"
+
+# TODO Add a way to override the config.yaml file
+ynh_add_config --template="base.config.yaml" --destination="$install_dir/base.config.yaml"
+chmod 400 "$install_dir/base.config.yaml"
+chown "$app:$app" "$install_dir/base.config.yaml"
 
 etc_path=$(dirname $user_config_path)
 ynh_app_setting_set --app=$app --key=etc_path --value=$etc_path
@@ -153,74 +72,67 @@ chown "$app:$app" "$etc_path"
 
 any_account_of_domain="@.*:${domain//\./\\\.}"
 
-# TODO Add a way to override the config.yaml file
-ynh_add_config --template="base.config.yaml" --destination="$base_config_path"
 ynh_add_config --template="user.config.yaml" --destination="$user_config_path"
-
-chmod 400 "$base_config_path"
-chown $app:$app "$base_config_path"
 chmod 600 "$user_config_path"
-chown $app:$app "$user_config_path"
+chown "$app:$app" "$user_config_path"
 
 #=================================================
-# SETUP SYSTEMD
+# INSTALL NODE DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Configuring a systemd service..." --weight=1
+ynh_script_progression --message="Building Node dependencies..." --weight=30
 
-# Create startup script
-ynh_add_config --template="../conf/run.sh" --destination="$final_path/run.sh"
+pushd "$install_dir/source"
+    ynh_use_nodejs
+    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" npx yarn install
+popd
 
-chmod 750 "$final_path/run.sh"
-chown "$app:$app" "$final_path/run.sh"
+#=================================================
+# SETUP PIP (FOR YQ)
+#=================================================
+ynh_script_progression --message="Install yq..." --weight=1
 
-# Create a dedicated systemd config
-ynh_add_systemd_config
+_venv_install
+"$venvpy" -m pip install yq
 
 #=================================================
 # CREATE LOG DIR
 #=================================================
 
 mkdir -p -m 700 "$log_path"
-chown $app:$app "$log_path"
+chown "$app:$app" "$log_path"
 
 #=================================================
 # REGISTER MODULE IN SYNAPSE
 #=================================================
 ynh_script_progression --message="Register module in Synapse" --weight=1
 
-pushd "$final_path"
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production $final_path/run.sh -r -f "$app.yaml"
+pushd "$install_dir/source"
+    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production \
+        "$install_dir/run.sh" -r -f "$install_dir/$app.yaml"
 popd
 
-cp "$final_path/$app.yaml" $app_service_registration_path/$app.yaml
-/opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
-	|| ynh_die --message="Synapse can't restart with the appservice configuration"
+cp "$install_dir/$app.yaml" "$app_service_registration_path/$app.yaml"
+"/opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh" \
+    || ynh_die --message="Synapse can't restart with the appservice configuration"
 
 ynh_store_file_checksum --file="$app_service_registration_path/$app.yaml"
 
 #=================================================
-# GENERIC FINALIZATION
+# SYSTEM CONFIGURATION
 #=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+ynh_script_progression --message="Adding system configurations related to $app..." --weight=1
 
-yunohost service add $app --description="$app daemon for bridging Discord and Matrix messages"
+# Create a dedicated systemd config
+ynh_add_systemd_config
+yunohost service add "$app" --description="$app daemon for bridging Discord and Matrix messages"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression --message="Starting $app's systemd service..." --weight=1
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start"
-
-#=================================================
-# SEND A README FOR THE ADMIN
-#=================================================
-ynh_script_progression --message="Sending a readme for the admin..."
-
-# ynh_send_readme_to_admin --app_message="../conf/msg_install" --recipients=$admin_email --type='install'
+ynh_systemd_action --service_name="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT

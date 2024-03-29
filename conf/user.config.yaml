@@ -1,6 +1,6 @@
 # You can edit this file.
-# This will override the configuration contained in the __FINALPATH__/base.config.yaml file.
-# Don't hesitate to take a look at __FINALPATH__/sample.config.yaml to see all the available options.
+# This will override the configuration contained in the __INSTALL_DIR__/base.config.yaml file.
+# Don't hesitate to take a look at __INSTALL_DIR__/sample.config.yaml to see all the available options.
 # Then, in order to take into account the changes, run: systemctl restart __APP__
 
 provisioning:

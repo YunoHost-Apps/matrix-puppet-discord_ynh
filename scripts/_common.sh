@@ -4,15 +4,20 @@
 # COMMON VARIABLES
 #=================================================
 
-# Node version
 NODEJS_VERSION=12
-
-# dependencies used by the app (must be on a single line)
-pkg_dependencies="postgresql libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev"
 
 #=================================================
 # PERSONAL HELPERS
 #=================================================
+
+_venv_install() {
+    ynh_exec_as "$app" python3 -m venv --upgrade "$install_dir/venv"
+    venvpy="$install_dir/venv/bin/python3"
+
+    ynh_exec_as "$app" "$venvpy" -m pip install --upgrade --no-cache-dir pip
+
+    ynh_exec_as "$app" "$venvpy" -m pip install setuptools wheel pyyaml
+}
 
 #=================================================
 # EXPERIMENTAL HELPERS
