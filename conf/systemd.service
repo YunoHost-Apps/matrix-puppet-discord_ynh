@@ -8,8 +8,8 @@ Environment=NODE_ENV=production
 Environment="__YNH_NODE_LOAD_PATH__"
 User=__APP__
 Group=__APP__
-WorkingDirectory=__FINALPATH__/
-ExecStart=__FINALPATH__/run.sh -f __APP__.yaml
+WorkingDirectory=__INSTALL_DIR__/
+ExecStart=__INSTALL_DIR__/run.sh -f __APP__.yaml
 StandardOutput=syslog
 StandardError=syslog
 
